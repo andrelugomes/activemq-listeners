@@ -1,5 +1,7 @@
 package br.com.andreluisgomes;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 
 import javax.jms.*;
 import java.io.IOException;
@@ -7,16 +9,20 @@ import java.io.IOException;
 
 public class Subscriber {
 
+    private static final Logger logger = Logger.getLogger(Subscriber.class);
+
 	public static void main(String[] args) throws JMSException {
+
 		//getting topic name
         String topicName = null;
         try {
             topicName = args[0];
-            System.out.println("preparing for listening topic : " + topicName);
+            System.out.println("Preparing for listening topic : " + topicName);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Erro ao recuperar o nome do Topico");
         }
 
+        //TODO - extract to a propertie file
         // Getting JMS connection from the server
         String url = "failover:(tcp://napsao-qa-nix-cat-activemq-1.qa.vmcommerce.intra:61616,tcp://napsao-qa-nix-cat-activemq-2.qa.vmcommerce.intra:61616)?randomize=false";
 
