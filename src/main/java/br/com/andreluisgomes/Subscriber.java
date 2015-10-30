@@ -24,7 +24,7 @@ public class Subscriber {
 
         //TODO - extract to a propertie file
         // Getting JMS connection from the server
-        String url = "failover:(tcp://napsao-qa-nix-cat-activemq-1.qa.vmcommerce.intra:61616,tcp://napsao-qa-nix-cat-activemq-2.qa.vmcommerce.intra:61616)?randomize=false";
+        String url = "active_mq_host:61616";
 
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
         Connection connection = connectionFactory.createConnection();
