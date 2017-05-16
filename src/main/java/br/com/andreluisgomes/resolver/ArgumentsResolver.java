@@ -5,19 +5,18 @@ package br.com.andreluisgomes.resolver;
  */
 public class ArgumentsResolver {
 
-    private String arqumentName;
+    private String argumentName;
 
     public ArgumentsResolver(String[] args) {
         try {
-            arqumentName = args[0];
+            argumentName = args[0];
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Erro ao recuperar o nome do argumento.");
-            throw new RuntimeException(e.getMessage());
+            System.out.println("Erro ao recuperar o nome do argumento. Error=" + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
-
-    public String getArqumentName() {
-        return arqumentName;
+    public String getArgumentName() {
+        return argumentName;
     }
 }
