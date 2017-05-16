@@ -1,10 +1,10 @@
 package br.com.andreluisgomes;
 
+import br.com.andreluisgomes.constants.Broker;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
 
 import javax.jms.*;
-import java.io.IOException;
 
 
 public class Subscriber {
@@ -13,20 +13,15 @@ public class Subscriber {
 
 	public static void main(String[] args) throws JMSException {
 
-		//getting topic name
-        String topicName = null;
+        String topicName;
         try {
             topicName = args[0];
             System.out.println("Preparing for listening topic : " + topicName);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Erro ao recuperar o nome do Topico");
+            logger.error("Erro ao recuperar o nome do Tópico");
+            throw new RuntimeException(e.getMessage());
         }
-
-        //TODO - extract to a propertie file
-        // Getting JMS connection from the server
-        String url = "active_mq_host:61616";
-
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(Broker.URL);
         Connection connection = connectionFactory.createConnection();
         connection.start();
 
@@ -36,29 +31,27 @@ public class Subscriber {
         System.out.println("Session create with : " + topic.getTopicName());
 
         MessageConsumer consumer = session.createConsumer(topic);
-
-        MessageListener listner = new MessageListener() {
+        MessageListener listener = new MessageListener() {
             public void onMessage(Message message) {
                 try {
                     if (message instanceof TextMessage) {
                         TextMessage textMessage = (TextMessage) message;
-                        System.out.println("Received message :" + textMessage.getText() + "'");
+                        System.out.println("Received message >>> " + textMessage.getText());
                     }
-                } catch (JMSException e) {
-                    System.out.println("Caught:" + e);
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    logger.error("Caught:" + e);
+                    throw new RuntimeException(e.getMessage());
                 }
             }
         };
-        consumer.setMessageListener(listner);
+        consumer.setMessageListener(listener);
 
         try {
             System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Caught:" + e);
+            throw new RuntimeException(e.getMessage());
         }
         connection.close();
-
     }
-
 }
