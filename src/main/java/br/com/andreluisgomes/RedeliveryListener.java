@@ -7,14 +7,14 @@ import org.apache.log4j.Logger;
 import javax.jms.JMSException;
 
 
-public class Receiver {
+public class RedeliveryListener {
 
-    private static final Logger logger = Logger.getLogger(Receiver.class);
+    private static final Logger logger = Logger.getLogger(RedeliveryListener.class);
 
 	public static void main(String[] args) throws JMSException {
         try {
             ActiveMQQueue queue = new ActiveMQQueue(args[0]);
-            MessageConsumerFactory.consume(queue);
+            MessageConsumerFactory.error(queue);
             System.in.read();
         } catch (Exception e) {
             logger.error("Caught:" + e);

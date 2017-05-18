@@ -52,26 +52,26 @@
                 <version>2.5.5</version>
                 <executions>
                     <execution>
-                    <id>build-topic-subscriber</id>
-                    <configuration>
-                        <appendAssemblyId>false</appendAssemblyId>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                        <archive>
-                            <manifest>
-                                <mainClass>br.com.andreluisgomes.Subscriber</mainClass>
-                            </manifest>
-                        </archive>
-                        <finalName>activemq-subscriber</finalName>
-                    </configuration>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
+                        <id>build-topic-subscriber</id>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>br.com.andreluisgomes.Subscriber</mainClass>
+                                </manifest>
+                            </archive>
+                            <finalName>activemq-subscriber</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                     <execution>
-                    <id>build-queue-receiver</id>
+                        <id>build-queue-receiver</id>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptorRefs>
@@ -83,6 +83,44 @@
                                 </manifest>
                             </archive>
                             <finalName>activemq-receiver</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-durable-subscriber</id>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>br.com.andreluisgomes.DurableSubscriber</mainClass>
+                                </manifest>
+                            </archive>
+                            <finalName>durable-subscriber</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-redelivery-listener</id>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>br.com.andreluisgomes.RedeliveryListener</mainClass>
+                                </manifest>
+                            </archive>
+                            <finalName>redelivery-listener</finalName>
                         </configuration>
                         <phase>package</phase>
                         <goals>

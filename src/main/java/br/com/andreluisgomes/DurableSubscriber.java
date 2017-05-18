@@ -1,22 +1,22 @@
 package br.com.andreluisgomes;
 
 import br.com.andreluisgomes.factory.MessageConsumerFactory;
-import br.com.andreluisgomes.resolver.ArgumentsResolver;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.log4j.Logger;
 
 import javax.jms.JMSException;
 
 
-public class Subscriber {
+public class DurableSubscriber {
 
-    private static final Logger logger = Logger.getLogger(Subscriber.class);
+    private static final Logger logger = Logger.getLogger(DurableSubscriber.class);
 
 	public static void main(String[] args) throws JMSException {
          try {
-             ArgumentsResolver ar = new ArgumentsResolver(args);
-             ActiveMQTopic topic = new ActiveMQTopic(ar.getArgumentName());
-             MessageConsumerFactory.consume(topic);
+             String topicName = args[0];
+             String subscriberName = args[1];
+             ActiveMQTopic topic = new ActiveMQTopic(topicName);
+             MessageConsumerFactory.durable(topic, subscriberName);
              System.in.read();
         } catch (Exception e) {
             logger.error("Caught:" + e);
