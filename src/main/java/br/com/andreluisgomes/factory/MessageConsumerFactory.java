@@ -10,7 +10,7 @@ import javax.jms.*;
 public class MessageConsumerFactory {
     public static MessageConsumer consume(Destination destination) throws JMSException {
         try {
-            Session session = ActiveMQSession.factory(false, Session.AUTO_ACKNOWLEDGE);
+            Session session = ActiveMQSession.factory(false, Session.AUTO_ACKNOWLEDGE, null);
 
             System.out.println("Session create with : " + destination);
 
@@ -38,7 +38,7 @@ public class MessageConsumerFactory {
 
     public static MessageConsumer error(Destination destination) throws JMSException {
         try {
-            Session session = ActiveMQSession.factory(false, Session.AUTO_ACKNOWLEDGE);
+            Session session = ActiveMQSession.factory(false, Session.AUTO_ACKNOWLEDGE, null);
             MessageConsumer consumer = session.createConsumer(destination);
             MessageListener listener = new MessageListener() {
                 public void onMessage(Message message) {
@@ -56,7 +56,7 @@ public class MessageConsumerFactory {
 
     public static MessageConsumer durable(ActiveMQTopic destination, String name) throws JMSException {
         try {
-            Session session = ActiveMQSession.factory(false, Session.AUTO_ACKNOWLEDGE);
+            Session session = ActiveMQSession.factory(false, Session.AUTO_ACKNOWLEDGE, name);
 
             System.out.println("Durable session create with : " + destination);
 
